@@ -1,0 +1,127 @@
+{
+  "title": "The Bitten Semicircle",
+  "slug": "semicircle-chord-area",
+  "words_per_second": 2.5,
+  "segments": [
+    {
+      "id": "s01_hook",
+      "section": "Hook",
+      "start": 0.0,
+      "end": 11.0,
+      "dialogue": "A semicircle with a bite taken out of it. We only know one number, sixteen. Can that really be enough to find the shaded area?",
+      "animation": "Tag 'QUESTION 10' pops in, title 'The Bitten Semicircle' with pulse bar. Shaded half-annulus figure fades in under it with glowing outer arc, chord labelled 16."
+    },
+    {
+      "id": "s02_setup",
+      "section": "Setup",
+      "start": 11.0,
+      "end": 29.0,
+      "dialogue": "Here is the setup. A big semicircle sits on its diameter, A B. A chord, C D, of length sixteen, runs parallel to A B. A smaller semicircle, also standing on A B, just touches C D, and it is cut away.",
+      "animation": "Clear title. Rebuild figure step by step: big semicircle (PRIMARY glow) + diameter AB with dots and labels; chord CD (SECONDARY) with label 16 and C, D dots; small semicircle (NEGATIVE dashed) grows from the centre until it touches CD; region between fills with PRIMARY at low opacity."
+    },
+    {
+      "id": "s03_question",
+      "section": "Setup",
+      "start": 29.0,
+      "end": 41.5,
+      "dialogue": "The question asks for the area of the shaded shape. The choices are sixteen pi, twenty four pi, thirty two pi, forty eight pi, and sixty four pi.",
+      "animation": "Figure slides left. Heading 'Shaded area = ?'. Five option cards A–E (16π…64π) stagger in on the right."
+    },
+    {
+      "id": "s04_names",
+      "section": "Step 1",
+      "start": 41.5,
+      "end": 52.0,
+      "dialogue": "We do not know either radius, so let's give them names. Call the big radius capital R, and the small radius little r.",
+      "animation": "Options fade out. Centre O dot appears. Radius O→B drawn in PRIMARY labelled R; radius from O along AB to small semicircle edge drawn in NEGATIVE labelled r. Step label 1 'Name the radii'."
+    },
+    {
+      "id": "s05_area",
+      "section": "Step 2",
+      "start": 52.0,
+      "end": 63.5,
+      "dialogue": "The shaded area is the big half disc minus the small half disc. That is one half pi R squared, minus one half pi r squared.",
+      "animation": "Step label 2. Flash big half disc (PRIMARY) then small half disc (NEGATIVE) over the figure. Right side writes A = ½πR² − ½πr², with R terms PRIMARY, r terms NEGATIVE."
+    },
+    {
+      "id": "s06_factor",
+      "section": "Step 2",
+      "start": 63.5,
+      "end": 78.5,
+      "dialogue": "Both terms share one half pi, so pull it out. The area is one half pi, times R squared minus r squared. So we only need that difference, not each radius on its own.",
+      "animation": "TransformMatchingTex to A = ½π(R² − r²). Box/underline the bracket (R² − r²) in HIGHLIGHT with a '?' beneath it."
+    },
+    {
+      "id": "s07_tangent",
+      "section": "Step 3",
+      "start": 78.5,
+      "end": 93.0,
+      "dialogue": "Now use the tangent point. The small semicircle touches C D at its very top, directly above the centre. So the distance from A B up to C D is exactly little r.",
+      "animation": "Step label 3. Small radius rotates up from horizontal to vertical, reaching tangent point M on CD. Dot M; right-angle mark at M between OM and CD. Label r beside OM."
+    },
+    {
+      "id": "s08_triangle",
+      "section": "Step 3",
+      "start": 93.0,
+      "end": 109.5,
+      "dialogue": "Next, draw the big radius from the centre to D. Its length is capital R. And because the centre sits right below the middle of C D, the point M splits the chord into two halves of eight.",
+      "animation": "Draw O→D in PRIMARY (glow) labelled R. Brace under MD labelled 8 (SECONDARY). Fill triangle OMD with faint HIGHLIGHT."
+    },
+    {
+      "id": "s09_pythag",
+      "section": "Step 4",
+      "start": 109.5,
+      "end": 120.5,
+      "dialogue": "That gives a right triangle. By Pythagoras, r squared plus eight squared equals R squared. Rearranging, R squared minus r squared equals sixty four.",
+      "animation": "Step label 4. Right side (below area eq): r² + 8² = R² written, then TransformMatchingTex to R² − r² = 64."
+    },
+    {
+      "id": "s10_insight",
+      "section": "Key insight",
+      "start": 120.5,
+      "end": 133.0,
+      "dialogue": "And that is the key idea. We never needed the radii themselves, only the difference of their squares, and the chord hands it to us directly.",
+      "animation": "KEY IDEA tag (HIGHLIGHT). Circumscribe R² − r² = 64; arrow from it up to the (R² − r²) bracket in the area formula."
+    },
+    {
+      "id": "s11_sub",
+      "section": "Result",
+      "start": 133.0,
+      "end": 140.0,
+      "dialogue": "Substitute it into the area. One half pi, times sixty four, equals thirty two pi.",
+      "animation": "Area eq transforms: ½π(R² − r²) → ½π · 64 → 32π."
+    },
+    {
+      "id": "s12_answer",
+      "section": "Result",
+      "start": 140.0,
+      "end": 146.5,
+      "dialogue": "So the shaded area is thirty two pi. That's answer C.",
+      "animation": "result_box around A = 32π (POSITIVE). Badge 'C' appears next to it. Short beat."
+    },
+    {
+      "id": "s13_check",
+      "section": "Sanity check",
+      "start": 146.5,
+      "end": 165.0,
+      "dialogue": "Here is a fun check. Keep the chord at sixteen and shrink the small semicircle. The radii change, but the area never does. When the bite vanishes, C D becomes the diameter, R is eight, and the area is still thirty two pi.",
+      "animation": "Clear right side. Figure re-centres. Live readouts R, r, Area. ValueTracker r: 6→2→0→6 (model units); figure redraws with chord fixed length 16; Area stays 32π (glows HIGHLIGHT at r=0)."
+    },
+    {
+      "id": "s14_recap",
+      "section": "Recap",
+      "start": 165.0,
+      "end": 183.0,
+      "dialogue": "To recap. Write the area as one half pi, times R squared minus r squared. Use the tangent point to build a right triangle with half of the chord. Pythagoras gives the difference, sixty four, so the area is thirty two pi.",
+      "animation": "Clear. Heading 'Recap'. Three step cards stagger in, each with a small formula: ½π(R² − r²); right triangle r, 8, R; R² − r² = 64 → 32π boxed."
+    },
+    {
+      "id": "s15_outro",
+      "section": "Outro",
+      "start": 183.0,
+      "end": 190.0,
+      "dialogue": "Next time two radii show up together, look for the right triangle that links them.",
+      "animation": "Recap fades; title-style closing line 'Look for the right triangle' with pulse bar, figure mini icon."
+    }
+  ]
+}

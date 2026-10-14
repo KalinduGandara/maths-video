@@ -1,0 +1,15 @@
+{
+  "_comment": "Channel narrator. Changing voice/speed here changes it for every future video; keep it fixed for consistency.",
+  "engine": "kokoro",
+  "model": "hexgrad/Kokoro-82M",
+  "lang_code": "a",
+  "voice": "af_heart",
+  "speed": 0.95,
+  "max_speed": 1.15,
+  "sample_rate": 24000,
+  "target_rms_dbfs": -20.0,
+  "pronunciations": [
+    {"_comment": "single capital A next to another point letter (A B, A C, B A) is the letter, not the article",
+     "pattern": "(?<![\\w\\[])A(?= [B-Z]\\b)|(?<=\\b[B-Z] )A(?![\\w\\]])", "replace": "[A](/ˈA/)"}
+  ]
+}

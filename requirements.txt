@@ -1,0 +1,10 @@
+# Python 3.10 (.venv). System deps (not pip): ffmpeg, MacTeX/TeX Live 2026, espeak-ng (brew install ffmpeg espeak-ng)
+
+# Animation
+manim==0.19.1
+numpy==2.2.6
+
+# Narration (Kokoro-82M local TTS; model weights download from Hugging Face on first run)
+kokoro==0.9.4
+misaki[en]==0.9.4
+soundfile==0.14.0

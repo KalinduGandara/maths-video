@@ -1,0 +1,107 @@
+[
+  {
+    "id": "s01_hook",
+    "start": 0.0,
+    "end": 11.0,
+    "duration": 11.0,
+    "text": "A semicircle with a bite taken out of it. We only know one number, sixteen. Can that really be enough to find the shaded area?"
+  },
+  {
+    "id": "s02_setup",
+    "start": 11.0,
+    "end": 29.0,
+    "duration": 18.0,
+    "text": "Here is the setup. A big semicircle sits on its diameter, A B. A chord, C D, of length sixteen, runs parallel to A B. A smaller semicircle, also standing on A B, just touches C D, and it is cut away."
+  },
+  {
+    "id": "s03_question",
+    "start": 29.0,
+    "end": 41.5,
+    "duration": 12.5,
+    "text": "The question asks for the area of the shaded shape. The choices are sixteen pi, twenty four pi, thirty two pi, forty eight pi, and sixty four pi."
+  },
+  {
+    "id": "s04_names",
+    "start": 41.5,
+    "end": 52.0,
+    "duration": 10.5,
+    "text": "We do not know either radius, so let's give them names. Call the big radius capital R, and the small radius little r."
+  },
+  {
+    "id": "s05_area",
+    "start": 52.0,
+    "end": 63.5,
+    "duration": 11.5,
+    "text": "The shaded area is the big half disc minus the small half disc. That is one half pi R squared, minus one half pi r squared."
+  },
+  {
+    "id": "s06_factor",
+    "start": 63.5,
+    "end": 78.5,
+    "duration": 15.0,
+    "text": "Both terms share one half pi, so pull it out. The area is one half pi, times R squared minus r squared. So we only need that difference, not each radius on its own."
+  },
+  {
+    "id": "s07_tangent",
+    "start": 78.5,
+    "end": 93.0,
+    "duration": 14.5,
+    "text": "Now use the tangent point. The small semicircle touches C D at its very top, directly above the centre. So the distance from A B up to C D is exactly little r."
+  },
+  {
+    "id": "s08_triangle",
+    "start": 93.0,
+    "end": 109.5,
+    "duration": 16.5,
+    "text": "Next, draw the big radius from the centre to D. Its length is capital R. And because the centre sits right below the middle of C D, the point M splits the chord into two halves of eight."
+  },
+  {
+    "id": "s09_pythag",
+    "start": 109.5,
+    "end": 120.5,
+    "duration": 11.0,
+    "text": "That gives a right triangle. By Pythagoras, r squared plus eight squared equals R squared. Rearranging, R squared minus r squared equals sixty four."
+  },
+  {
+    "id": "s10_insight",
+    "start": 120.5,
+    "end": 133.0,
+    "duration": 12.5,
+    "text": "And that is the key idea. We never needed the radii themselves, only the difference of their squares, and the chord hands it to us directly."
+  },
+  {
+    "id": "s11_sub",
+    "start": 133.0,
+    "end": 140.0,
+    "duration": 7.0,
+    "text": "Substitute it into the area. One half pi, times sixty four, equals thirty two pi."
+  },
+  {
+    "id": "s12_answer",
+    "start": 140.0,
+    "end": 146.5,
+    "duration": 6.5,
+    "text": "So the shaded area is thirty two pi. That's answer C."
+  },
+  {
+    "id": "s13_check",
+    "start": 146.5,
+    "end": 165.0,
+    "duration": 18.5,
+    "text": "Here is a fun check. Keep the chord at sixteen and shrink the small semicircle. The radii change, but the area never does. When the bite vanishes, C D becomes the diameter, R is eight, and the area is still thirty two pi."
+  },
+  {
+    "id": "s14_recap",
+    "start": 165.0,
+    "end": 183.0,
+    "duration": 18.0,
+    "text": "To recap. Write the area as one half pi, times R squared minus r squared. Use the tangent point to build a right triangle with half of the chord. Pythagoras gives the difference, sixty four, so the area is thirty two pi."
+  },
+  {
+    "id": "s15_outro",
+    "start": 183.0,
+    "end": 190.0,
+    "duration": 7.0,
+    "text": "Next time two radii show up together, look for the right triangle that links them."
+  }
+]

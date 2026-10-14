@@ -1,0 +1,16 @@
+# The Bitten Semicircle — narration (total 03:10.000)
+[00:00.000 - 00:11.000] A semicircle with a bite taken out of it. We only know one number, sixteen. Can that really be enough to find the shaded area?
+[00:11.000 - 00:29.000] Here is the setup. A big semicircle sits on its diameter, A B. A chord, C D, of length sixteen, runs parallel to A B. A smaller semicircle, also standing on A B, just touches C D, and it is cut away.
+[00:29.000 - 00:41.500] The question asks for the area of the shaded shape. The choices are sixteen pi, twenty four pi, thirty two pi, forty eight pi, and sixty four pi.
+[00:41.500 - 00:52.000] We do not know either radius, so let's give them names. Call the big radius capital R, and the small radius little r.
+[00:52.000 - 01:03.500] The shaded area is the big half disc minus the small half disc. That is one half pi R squared, minus one half pi r squared.
+[01:03.500 - 01:18.500] Both terms share one half pi, so pull it out. The area is one half pi, times R squared minus r squared. So we only need that difference, not each radius on its own.
+[01:18.500 - 01:33.000] Now use the tangent point. The small semicircle touches C D at its very top, directly above the centre. So the distance from A B up to C D is exactly little r.
+[01:33.000 - 01:49.500] Next, draw the big radius from the centre to D. Its length is capital R. And because the centre sits right below the middle of C D, the point M splits the chord into two halves of eight.
+[01:49.500 - 02:00.500] That gives a right triangle. By Pythagoras, r squared plus eight squared equals R squared. Rearranging, R squared minus r squared equals sixty four.
+[02:00.500 - 02:13.000] And that is the key idea. We never needed the radii themselves, only the difference of their squares, and the chord hands it to us directly.
+[02:13.000 - 02:20.000] Substitute it into the area. One half pi, times sixty four, equals thirty two pi.
+[02:20.000 - 02:26.500] So the shaded area is thirty two pi. That's answer C.
+[02:26.500 - 02:45.000] Here is a fun check. Keep the chord at sixteen and shrink the small semicircle. The radii change, but the area never does. When the bite vanishes, C D becomes the diameter, R is eight, and the area is still thirty two pi.
+[02:45.000 - 03:03.000] To recap. Write the area as one half pi, times R squared minus r squared. Use the tangent point to build a right triangle with half of the chord. Pythagoras gives the difference, sixty four, so the area is thirty two pi.
+[03:03.000 - 03:10.000] Next time two radii show up together, look for the right triangle that links them.
