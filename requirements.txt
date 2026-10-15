@@ -8,3 +8,6 @@ numpy==2.2.6
 kokoro==0.9.4
 misaki[en]==0.9.4
 soundfile==0.14.0
+
+# Pronunciation QA (Whisper ASR round trip; model downloads on first run)
+faster-whisper==1.2.1

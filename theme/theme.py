@@ -11,6 +11,7 @@ cyan and magenta glows, electric neon strokes, bold condensed headlines.
 
 import json
 import pathlib
+import re
 
 from manim import *
 
@@ -227,9 +228,11 @@ class ThemedScene(Scene):
         self.add(self.backdrop)
 
     def load_timeline(self, scene_file):
-        path = pathlib.Path(scene_file).resolve().parent / "timeline.json"
-        self.timeline = json.loads(path.read_text())
+        folder = pathlib.Path(scene_file).resolve().parent
+        self.timeline = json.loads((folder / "timeline.json").read_text())
         self._seg = {s["id"]: s for s in self.timeline["segments"]}
+        voiced = folder / "voice_timing.json"
+        self.voice = json.loads(voiced.read_text())["segments"] if voiced.exists() else {}
         return self.timeline
 
     def seg(self, seg_id):
@@ -238,6 +241,38 @@ class ThemedScene(Scene):
     def slot(self, seg_id):
         """Seconds left until the end of segment seg_id (for sizing run_times)."""
         return self._seg[seg_id]["end"] - self.time
+
+    def at(self, seg_id, offset):
+        """Wait until `offset` seconds into segment seg_id."""
+        dt = self._seg[seg_id]["start"] + offset - self.time
+        if dt < -0.05:
+            print(f"[at] {seg_id}+{offset:.2f}s: animation is {-dt:.2f}s late")
+        if dt > 1e-3:
+            self.wait(dt)
+
+    def cue(self, seg_id, phrase, lead=0.15, nth=1):
+        """Wait until the narrator starts saying `phrase` (the nth time) in seg_id.
+        Uses the real word times in voice_timing.json; before the narration is
+        generated it estimates from words_per_second."""
+        norm = lambda t: re.findall(r"[a-z0-9]+", t.lower())
+        target = norm(phrase)
+        v = self.voice.get(seg_id)
+        if v:
+            spoken = [(w, x["start"]) for x in v["words"] for w in norm(x["word"])]
+            words = [w for w, _ in spoken]
+            hits = [i for i in range(len(words)) if words[i:i + len(target)] == target]
+            if len(hits) >= nth:
+                return self.at(seg_id, max(0.0, spoken[hits[nth - 1]][1] - lead))
+            print(f"[cue] '{phrase}' not found in the voiced words of {seg_id}; estimating")
+        said = norm(self._seg[seg_id]["dialogue"])
+        hits = [i for i in range(len(said)) if said[i:i + len(target)] == target]
+        if len(hits) < nth:
+            raise ValueError(f"cue phrase '{phrase}' is not in the dialogue of {seg_id}")
+        if v:
+            t = v["clip"] * hits[nth - 1] / max(1, len(said))
+        else:
+            t = hits[nth - 1] / self.timeline.get("words_per_second", 2.5)
+        self.at(seg_id, max(0.0, t - lead))
 
     def sync(self, seg_id, tolerance=0.05):
         """Wait until the end timestamp of seg_id. Raises if animations overran."""
@@ -263,7 +298,7 @@ class ThemedScene(Scene):
         if subtitle:
             group.add(caption(subtitle))
         group.arrange(DOWN, buff=0.35)
-        self.play(FadeIn(t, shift=SHIFT_IN, scale=1.15), GrowFromEdge(line, LEFT),
+        self.play(FadeIn(t, shift=SHIFT_IN), GrowFromEdge(line, LEFT),
                   run_time=run_time, rate_func=EASE)
         if subtitle:
             self.play(FadeIn(group[2], shift=SHIFT_IN), run_time=T_FAST)

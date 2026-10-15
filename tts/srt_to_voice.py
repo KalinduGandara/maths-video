@@ -4,14 +4,17 @@
 Usage:
   srt_to_voice.py <video_dir | file.srt> [--mux] [--voice V] [--speed S] [--out DIR]
 
-With a video folder (videos/NNN-slug/) it reads dialogue.srt, writes
-audio/<segment_id>.wav per cue (ids from dialogue.json) plus audio/narration.wav
-(all clips placed at their SRT start times), and with --mux combines the
-narration with <slug>.mp4 into <slug>_narrated.mp4.
+With a video folder (videos/NNN-slug/) it reads dialogue.srt and writes:
+  audio/<segment_id>.wav   one clip per cue (ids from dialogue.json)
+  audio/narration.wav      all clips placed at their SRT start times
+  voice_timing.json        per segment: clip length, every spoken word with its
+                           start/end time from the segment start, and the phonemes.
+                           ThemedScene.cue() uses it to lock animations to words,
+                           and `timeline_tool.py fit` uses it to size segments.
+With --mux it also combines narration.wav with <slug>.mp4 into <slug>_narrated.mp4.
 
-The voice, speed and loudness come from tts/voice.json so every video sounds the
-same. A clip longer than its cue is re-spoken faster (up to max_speed); if it
-still does not fit, a warning tells you which segment to lengthen.
+Every clip is spoken at the channel speed from tts/voice.json, never sped up.
+A clip longer than its slot is reported; fix it with `timeline_tool.py fit`.
 """
 
 import argparse
@@ -60,19 +63,35 @@ class Voice:
         self.voice, self.speed = voice, speed
         self.sr = CONFIG["sample_rate"]
 
-    def say(self, text, speed=None):
-        parts = [r.audio.numpy() for r in self.pipe(prepare(text), voice=self.voice,
-                                                     speed=speed or self.speed) if r.audio is not None]
+    def say(self, text):
+        """Returns (audio, words, phonemes); word times are seconds from the clip start."""
+        parts, words, phonemes, offset = [], [], [], 0.0
+        for r in self.pipe(prepare(text), voice=self.voice, speed=self.speed):
+            if r.audio is None:
+                continue
+            a = r.audio.numpy()
+            for t in r.tokens or []:
+                if t.start_ts is not None and re.search(r"\w", t.text):
+                    words.append({"word": t.text, "start": offset + t.start_ts,
+                                  "end": offset + (t.end_ts or t.start_ts), "phonemes": t.phonemes})
+            phonemes.append(r.phonemes)
+            parts.append(a)
+            offset += len(a) / self.sr
         audio = np.concatenate(parts) if parts else np.zeros(1, dtype=np.float32)
-        return level(trim(audio, self.sr))
+        audio, lead = trim(audio, self.sr)
+        for w in words:
+            w["start"] = max(0.0, w["start"] - lead)
+            w["end"] = max(0.0, w["end"] - lead)
+        return level(audio), words, " ".join(phonemes)
 
 
 def trim(audio, sr, thresh=1e-3, pad=0.05):
+    """Cut leading/trailing silence. Returns (audio, seconds removed from the front)."""
     idx = np.where(np.abs(audio) > thresh)[0]
     if len(idx) == 0:
-        return audio
-    p = int(pad * sr)
-    return audio[max(0, idx[0] - p): idx[-1] + p]
+        return audio, 0.0
+    a = max(0, idx[0] - int(pad * sr))
+    return audio[a: idx[-1] + int(pad * sr)], a / sr
 
 
 def level(audio):
@@ -111,29 +130,32 @@ def main():
     sr = v.sr
     total = max(c["end"] for c in cues)
     track = np.zeros(int(np.ceil(total * sr)) + sr, dtype=np.float32)
-    problems = []
+    timing, problems = {}, []
     for i, c in enumerate(cues):
         name = ids[i] if ids else f"cue_{i + 1:03d}"
         slot = c["end"] - c["start"]
-        speed = args.speed
-        audio = v.say(c["text"], speed)
-        while len(audio) / sr > slot - 0.1 and speed < CONFIG["max_speed"] - 1e-6:
-            speed = min(CONFIG["max_speed"], speed * len(audio) / sr / (slot - 0.2))
-            audio = v.say(c["text"], speed)
+        audio, words, phonemes = v.say(c["text"])
         dur = len(audio) / sr
         flag = ""
         if dur > slot:
-            flag = "  <-- TOO LONG: lengthen this segment"
+            flag = "  <-- TOO LONG: run timeline_tool.py fit"
             problems.append(name)
-        elif speed != args.speed:
-            flag = f"  (sped up to {speed:.2f})"
         print(f"{name:<22} {dur:5.2f}s / slot {slot:5.2f}s{flag}")
         sf.write(out / f"{name}.wav", audio, sr)
         s = int(c["start"] * sr)
         track[s:s + len(audio)] += audio[: len(track) - s]
+        timing[name] = {
+            "start": c["start"], "clip": round(dur, 3), "text": c["text"], "phonemes": phonemes,
+            "words": [{"word": w["word"], "start": round(w["start"], 3), "end": round(w["end"], 3),
+                       "phonemes": w["phonemes"]} for w in words],
+        }
     track = track[: int(np.ceil(total * sr))]
     sf.write(out / "narration.wav", track, sr)
     print(f"wrote {len(cues)} clips + narration.wav ({total:.1f}s) to {out}")
+    if vdir:
+        meta = {"voice": args.voice, "speed": args.speed, "segments": timing}
+        (vdir / "voice_timing.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False) + "\n")
+        print(f"wrote {vdir / 'voice_timing.json'}")
     if problems:
         print("warning: clips longer than their slot:", ", ".join(problems))
 

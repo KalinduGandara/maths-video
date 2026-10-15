@@ -10,6 +10,8 @@ __pycache__/
 media/
 videos/*/media/
 videos/*/audio/
+videos/*/review/
+videos/*/thumbnail.png
 theme/media/
 *.mp4
 *.mov

@@ -1,11 +1,10 @@
 {
-  "_comment": "Channel narrator. Changing voice/speed here changes it for every future video; keep it fixed for consistency.",
+  "_comment": "Channel narrator: calm male voice (am_michael, US English). Changing voice/speed here changes it for every future video; keep it fixed for consistency.",
   "engine": "kokoro",
   "model": "hexgrad/Kokoro-82M",
   "lang_code": "a",
-  "voice": "af_heart",
-  "speed": 0.95,
-  "max_speed": 1.15,
+  "voice": "am_michael",
+  "speed": 0.9,
   "sample_rate": 24000,
   "target_rms_dbfs": -20.0,
   "pronunciations": [
