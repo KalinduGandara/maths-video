@@ -24,6 +24,7 @@ Everything lives in `channel/` at the project root:
 Pick the mode from the request and from what already exists in `channel/`:
 - **Plan** (no `channel/strategy.md` yet, or the user asks for a new plan): Steps 1 to 6.
 - **More briefs / ideas**: read the existing files, then do Steps 4 to 6 for the next batch.
+- **Add the user's ideas** (the user names problems, topics or titles): for each one, find the exact source and evidence (comparable videos, searches, competition), score it with the table in `strategy.md`, and add it to `ideas.md` marked "user idea". Then say where it ranks and suggest a calendar slot. If the user wants it made soon, write its brief (Step 6) and update `calendar.md`. If an idea is weak (low demand, too advanced for the audience), say why and suggest a stronger angle on the same topic.
 - **Review** (the user shares analytics or results): Step 7.
 
 ## Step 1: Profile (ask the user)

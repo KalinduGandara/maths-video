@@ -53,7 +53,7 @@ Avoid: questions with an obvious answer, fake difficulty ("only geniuses can sol
 
 - 2.5 words per second is the planning rate. The real clip lengths from the voice set the final timing.
 - Leave a 1 to 2 second silent beat after the key insight and after the final answer.
-- Long-form videos run 4 to 10 minutes; Shorts are under 60 seconds, with the hook in the first 2 seconds and one idea.
+- Long-form videos run 6 to 14 minutes, 8 to 12 by default (8 minutes or more allows mid-roll ads). Take the brief's target length, and never pad to reach it: a simple problem may finish at 6 to 8 minutes. Shorts are under 60 seconds, with the hook in the first 2 seconds and one idea.
 
 ## Visual tone
 
