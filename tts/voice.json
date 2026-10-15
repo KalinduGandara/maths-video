@@ -9,7 +9,25 @@
   "sample_rate": 24000,
   "target_rms_dbfs": -20.0,
   "pronunciations": [
-    {"_comment": "single capital A next to another point letter (A B, A C, B A) is the letter, not the article",
-     "pattern": "(?<![\\w\\[])A(?= [B-Z]\\b)|(?<=\\b[B-Z] )A(?![\\w\\]])", "replace": "[A](/ˈA/)"}
+    {
+      "_comment": "single capital A next to another point letter (A B, A C, B A) is the letter, not the article",
+      "pattern": "(?<![\\w\\[])A(?= [B-Z]\\b)|(?<=\\b[B-Z] )A(?![\\w\\]])",
+      "replace": "[A](/ˈA/)"
+    },
+    {
+      "_comment": "capital A after a lowercase word or comma (point A, centres A, angle at A) is the letter; sentence-initial A stays the article",
+      "pattern": "(?<=[a-z,] )A(?![\\w\\]])",
+      "replace": "[A](/ˈA/)"
+    },
+    {
+      "_comment": "Descartes (French)",
+      "pattern": "\\bDescartes'?",
+      "replace": "[Descartes](/deɪkˈɑɹt/)"
+    },
+    {
+      "_comment": "lowercase variable a in 'a equals' is the letter",
+      "pattern": "\\ba(?= equals)",
+      "replace": "[a](/ˈA/)"
+    }
   ]
 }
